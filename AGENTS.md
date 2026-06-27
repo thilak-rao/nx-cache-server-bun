@@ -36,4 +36,4 @@ This project runs on Bun and uses Bun's built-ins. Do not add Node-only equivale
 
 - Unit tests colocate beside their source as `*.spec.ts`; end-to-end tests live under `e2e/`.
 - Commits follow Conventional Commits (`type(scope): subject`).
-- CI runs format-check, lint, and test on every PR; all three must pass. Publishing a GitHub Release builds and pushes the GHCR image (`.github/workflows/release-image.yml`).
+- CI runs format-check, lint, and test on every PR; all three must pass (`.github/workflows/ci.yml`). Pushing to `main` builds and pushes the GHCR image as `:latest` + `:sha-<short>`; pushing a `vX.Y.Z` tag publishes `:X.Y.Z` + `:X.Y` (`.github/workflows/publish-image.yml`).
