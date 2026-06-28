@@ -1,9 +1,9 @@
 ---
 title: Architecture
-description: Internal architecture and code organisation.
+description: 'How the Bun-based Nx remote cache server is built: thin handlers, pure functions, pluggable storage, and hashed token storage.'
 ---
 
-For local setup and contribution workflow, see [CONTRIBUTING.md](https://github.com/thilak-rao/nx-cache-server-bun/blob/main/CONTRIBUTING.md).
+This page covers the internal structure of the Bun-based Nx remote cache server. For local setup and contribution workflow, see [CONTRIBUTING.md](https://github.com/thilak-rao/remotecache/blob/main/CONTRIBUTING.md).
 
 ## HTTP layer
 
@@ -53,3 +53,5 @@ bun test
 ```
 
 There is no separate test script; invoke `bun test` directly.
+
+For context on the design trade-offs and what this server targets, see [Why self-host?](/why/).

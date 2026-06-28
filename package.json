@@ -1,5 +1,5 @@
 {
-  "name": "nx-cache-server-bun",
+  "name": "remotecache",
   "type": "module",
   "scripts": {
     "format": "oxfmt",

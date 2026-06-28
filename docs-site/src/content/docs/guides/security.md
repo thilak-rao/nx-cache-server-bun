@@ -1,6 +1,6 @@
 ---
 title: Security model
-description: Security design and token hashing.
+description: 'Token hashing, constant-time admin compare, path-traversal validation, append-only writes, and using readonly/full tokens to enforce CI trust boundaries.'
 ---
 
 ## Token storage
@@ -20,6 +20,32 @@ Cache hash parameters are validated before any storage access (`src/cache/is-val
 ## Append-only writes
 
 Once written, cache entries don't change. A `PUT` targeting an existing hash returns `409` without touching storage.
+
+## Trust boundaries: containing cache poisoning
+
+CVE-2025-36852 (CREEP) is an architectural flaw in single-credential cache plugins: a PR workflow
+hashes to the same key as a trusted main build, uploads a poisoned artifact first, and every
+subsequent cache hit ships the payload. See the [full explainer](/security/cve-2025-36852/) for the
+attack chain.
+
+This server's `readonly`/`full` token split is the primitive for containing that class:
+
+- Issue **`full`** tokens only to trusted pipelines — main branch, deploy jobs.
+- Issue **`readonly`** tokens to untrusted contexts — fork PRs, open-source contributor CI.
+
+`readonly` tokens are rejected at `PUT` with `403` (`src/cache/write-cache.ts`, line 41:
+`tokenPermission === 'full'` is the only path that can write). Untrusted runners can read the cache
+but cannot write to it, so they cannot place a poisoned artifact.
+
+:::caution[Honest limits]
+**Append-only is first-writer-wins.** If you hand a `full` token to an untrusted context — fork PR
+jobs, external contributor workflows — that context can still poison the cache before any trusted
+build runs. The `readonly`/`full` split only works if you actually scope tokens to trust level.
+
+**This is not Nx Cloud's cryptographic artifact-integrity verification.** Nx Cloud cryptographically
+binds artifacts to their source; this server gives you the lever (token scoping), but correct
+use of that lever is on you.
+:::
 
 ## Upload size cap
 

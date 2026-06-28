@@ -1,9 +1,9 @@
 ---
 title: Quickstart
-description: Get the server running and wired into Nx.
+description: 'Get a self-hosted Nx remote cache running and wired into Nx in five minutes: start the server, create a token, point Nx at it.'
 ---
 
-Start the server, create an access token, point Nx at it. Five minutes, give or take.
+Get a self-hosted Nx remote cache running in under five minutes — start the server, create an access token, point Nx at it.
 
 ## 1. Start the server
 
@@ -14,7 +14,7 @@ bun install
 ADMIN_TOKEN="change-me" bun run serve
 ```
 
-Starts on `http://localhost:3000` by default. The [Configuration](/nx-cache-server-bun/guides/configuration/) page covers all the environment variables — port, storage, upload limits, and more.
+Starts on `http://localhost:3000` by default. The [Configuration](/guides/configuration/) page covers all the environment variables — port, storage, upload limits, and more.
 
 ## 2. Create an access token
 
@@ -43,5 +43,6 @@ Run Nx as usual (`nx build`, `nx test`, etc.) and it will use the cache.
 
 ## Next steps
 
-- [API Reference](/nx-cache-server-bun/api/) — full HTTP API details, status codes, and request/response shapes.
-- [Configuration](/nx-cache-server-bun/guides/configuration/) — all environment variables, S3 storage setup, and production tips.
+- [Why self-host?](/why/) — the case for running your own Nx remote cache instead of Nx Cloud.
+- [API Reference](/api/) — full HTTP API details, status codes, and request/response shapes.
+- [Configuration](/guides/configuration/) — all environment variables, S3 storage setup, and production tips.

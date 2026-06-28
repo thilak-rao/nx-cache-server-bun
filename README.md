@@ -1,13 +1,19 @@
-# nx-cache-server-bun
+<p align="center">
+  <img src="docs-site/src/assets/logo.png" alt="remotecache" width="120" height="120">
+</p>
 
-A small, self-hosted **Nx Remote Cache** server built on **Bun**.
+# remotecache
 
-[![CI](https://github.com/thilak-rao/nx-cache-server-bun/actions/workflows/ci.yml/badge.svg)](https://github.com/thilak-rao/nx-cache-server-bun/actions/workflows/ci.yml)
-[![Docs](https://github.com/thilak-rao/nx-cache-server-bun/actions/workflows/docs.yml/badge.svg)](https://thilak-rao.github.io/nx-cache-server-bun/)
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/thilak-rao/nx-cache-server-bun/badge)](https://scorecard.dev/viewer/?uri=github.com/thilak-rao/nx-cache-server-bun)
+A small, self-hosted Nx remote cache server built on Bun.
+
+[![CI](https://github.com/thilak-rao/remotecache/actions/workflows/ci.yml/badge.svg)](https://github.com/thilak-rao/remotecache/actions/workflows/ci.yml)
+[![Docs](https://github.com/thilak-rao/remotecache/actions/workflows/docs.yml/badge.svg)](https://remotecache.dev/)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/thilak-rao/remotecache/badge)](https://scorecard.dev/viewer/?uri=github.com/thilak-rao/remotecache)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
-**Full documentation:** [thilak-rao.github.io/nx-cache-server-bun](https://thilak-rao.github.io/nx-cache-server-bun/)
+**Full documentation:** [remotecache.dev](https://remotecache.dev/)
+
+Nx's official self-hosted cache went free, then paid ($250/seat/year Powerpack), then free again (but Commercial-licensed, not MIT), then deprecated in under two years — all four `@nx/*-cache` plugins were sunset in May 2026 citing CVE-2025-36852 cache poisoning. This server is the MIT-licensed alternative: a custom remote-cache endpoint you own and operate, with no license restrictions and no vendor lock-in. [Full story →](https://remotecache.dev/why/)
 
 ## Features
 
@@ -56,14 +62,18 @@ docker run -p 3000:3000 \
   -e ADMIN_TOKEN="change-me" \
   -v "$PWD/data:/app/data" \
   -v "$PWD/cache:/app/cache" \
-  ghcr.io/thilak-rao/nx-cache-server-bun:latest
+  ghcr.io/thilak-rao/remotecache:latest
 ```
 
-See the [Deployment guide](https://thilak-rao.github.io/nx-cache-server-bun/guides/deployment/) for S3 storage and production setup.
+See the [Deployment guide](https://remotecache.dev/guides/deployment/) for S3 storage and production setup.
 
 ## Links
 
-- [Configuration](https://thilak-rao.github.io/nx-cache-server-bun/guides/configuration/) — all environment variables
-- [API Reference](https://thilak-rao.github.io/nx-cache-server-bun/api/) — full HTTP API
-- [Security model](https://thilak-rao.github.io/nx-cache-server-bun/guides/security/) — token auth, hashing, permissions
-- [Contributing](https://thilak-rao.github.io/nx-cache-server-bun/contributing/) — how to contribute
+- [Configuration](https://remotecache.dev/guides/configuration/) — all environment variables
+- [API Reference](https://remotecache.dev/api/) — full HTTP API
+- [Security model](https://remotecache.dev/guides/security/) — token auth, hashing, permissions
+- [Contributing](https://remotecache.dev/contributing/) — how to contribute
+
+---
+
+Built on the MIT-licensed [`jase88/nx-cache-server-bun`](https://github.com/jase88/nx-cache-server-bun); the original copyright is preserved in [LICENSE](./LICENSE).
