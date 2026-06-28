@@ -7,13 +7,6 @@ facts, numbers, or benchmarks beyond what is here.**
 
 ## Primary sources
 
-- **Medium article** — Emily Xiong, *"Exploring of Nx Self-Hosted Cache: From
-  Free to Paid to Free to Deprecated"* (Nov 12, 2025):
-  <https://emilyxiong.medium.com/exploring-of-nx-self-hosted-cache-5bc39bd2ed7f>
-  - Local PDF copy used during brainstorming (machine-local, does **not** travel
-    with the repo): `~/Downloads/Exploring of Nx Self-Hosted Cache_ From Free to
-    Paid to Free to Deprecated _ by Emily Xiong _ Medium.pdf`. Use the URL above
-    as the citable source.
 - **Deprecation tweet** — Jeff Cross (@jeffbcross), May 21, 2026, 3:26 PM:
   <https://x.com/jeffbcross/status/2057543663727833369>
 - **Nx deprecation notice** —
@@ -51,7 +44,7 @@ facts, numbers, or benchmarks beyond what is here.**
 >
 > The notice linked in the next tweet gives more details and recommendations.
 
-## Article digest (faithful to the Medium piece)
+## Article digest (the public record)
 
 ### The timeline (free → paid → free → deprecated)
 
@@ -97,7 +90,7 @@ The flaw is **architectural, not a code bug:**
 - Nx states this is a design issue that cannot be patched; hence deprecation
   rather than a fix.
 
-### The options Nx/Emily lay out (and where this server fits)
+### The options (and where this server fits)
 
 - **Option A — Accept the risk with mitigations:** private repos, no external
   PRs, and **split/isolate caches between PR and production**. Concretely, add an
@@ -110,21 +103,21 @@ The flaw is **architectural, not a code bug:**
 - **Option B — Migrate to Nx Cloud:** Nx's recommended path. Native zero-trust
   cache boundaries, token isolation, artifact-integrity verification. **Paid.**
 - **Option C — Disable remote caching:** local cache only. Removes the risk;
-  slows CI (the article frames it as turning a ~3-min build into a ~30-min one
-  for large monorepos — **their framing, not a measurement of ours**).
+  slows CI — fresh runners and cold checkouts rebuild from scratch, and large
+  monorepos pay the most. Don't cite a specific speed figure as our measurement.
 - **Option D — Build a custom zero-trust cache server:** Nx still allows a custom
   remote cache endpoint. You own all the security (signing, integrity, access
   control) or you reproduce the flaw.
 
 > **How `remotecache` relates (for honest positioning):** this server is the
 > self-hosted custom-endpoint path. Its `readonly`/`full` token split is the
-> *primitive* for Option A's "restrict writes by trust boundary" — untrusted
+> _primitive_ for Option A's "restrict writes by trust boundary" — untrusted
 > contexts get `readonly` and **cannot write**, so they cannot poison the cache.
 > It is **not** Nx Cloud's cryptographic artifact verification (Option B), and
 > append-only is **first-writer-wins** — so do not claim it "fixes" CVE-2025-36852.
 > See the spec's Honesty guardrails.
 
-### Pricing facts (as shown in the article, for the comparison page)
+### Pricing facts (for the comparison page)
 
 - **Nx Cloud:** Hobby **$0** (free forever — 50,000 monthly credits, remote
   caching with Nx Replay, distributed task execution with Nx Agents, for small

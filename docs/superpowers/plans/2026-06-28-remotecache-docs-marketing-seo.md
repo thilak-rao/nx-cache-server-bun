@@ -24,10 +24,10 @@ frontmatter, exact JSON-LD, internal links, and verification gates.
 - **Canonical domain:** `https://remotecache.dev` (apex). `remotecache.sh` 301s to it (operator/Cloudflare, out of repo).
 - **No base path:** after Task 1 there is **no** `/nx-cache-server-bun/` prefix anywhere in `docs-site/src`. All internal links are root-relative (`/guides/...`).
 - **Honesty guardrails (verbatim from spec — apply to every content task):**
-  - Frame the token split as *"lets you architect around the cache-poisoning class"* — **never** "fixes/immune to CVE-2025-36852".
+  - Frame the token split as _"lets you architect around the cache-poisoning class"_ — **never** "fixes/immune to CVE-2025-36852".
   - Security page carries an explicit **Honest limits** callout: append-only is **first-writer-wins**; a `full` token in an untrusted context reintroduces the risk; this is **not** Nx Cloud's cryptographic artifact verification.
-  - **Credit `jase88`** on `/why` and in README; preserve MIT. "What this fork adds" = the real git history only (token hashing at rest + plaintext-DB migration, upload cap/413, constant-time admin compare, path-traversal/hash hardening, non-root pinned container, GHCR publishing, repo hardening, docs site).
-  - **No invented benchmarks.** The "~3-min → ~30-min" framing is attributed to the Medium piece, not our measurement.
+  - **Credit `jase88`** as a footnote on `/why` and in README; the binding attribution is the preserved MIT copyright in `LICENSE`. "What remotecache adds" = the real git history only (token hashing at rest + plaintext-DB migration, upload cap/413, constant-time admin compare, path-traversal/hash hardening, non-root pinned container, GHCR publishing, repo hardening, docs site).
+  - **No invented benchmarks.** Don't present "~3-min → ~30-min" or any speed figure as our measurement; describe local-only caching qualitatively.
   - `vs Nx Cloud` names Nx Cloud's genuine strengths (managed, zero-trust verification, DTE/agents).
 - **Source of truth for facts:** `docs/superpowers/specs/2026-06-28-remotecache-source-material.md`. Cite from it; invent nothing beyond it.
 - **Voice:** veteran-engineer / DRE. Banned words: "unlock", "seamless", "effortless", "supercharge", "game-changing". No formulaic "Key Takeaways"/"TL;DR" blocks.
@@ -37,13 +37,15 @@ frontmatter, exact JSON-LD, internal links, and verification gates.
 ## File structure
 
 Config / infra (modify or create):
-- `docs-site/astro.config.mjs` — `site`/`base`, links-validator `exclude`, global `head` (default OG image), sidebar restructure. *(Tasks 1, 2, and each new-page task touch the sidebar.)*
+
+- `docs-site/astro.config.mjs` — `site`/`base`, links-validator `exclude`, global `head` (default OG image), sidebar restructure. _(Tasks 1, 2, and each new-page task touch the sidebar.)_
 - `docs-site/public/CNAME` — **create** (`remotecache.dev`).
 - `docs-site/public/robots.txt` — **create**.
 - `docs-site/public/og.png` — **create** (1200×630 placeholder via sharp; operator replaces).
 - `docs-site/scripts/make-og-placeholder.mjs` — **create** (one-off generator).
 
 Content rewrites:
+
 - `docs-site/src/content/docs/index.mdx`
 - `docs-site/src/content/docs/getting-started/quickstart.md`
 - `docs-site/src/content/docs/guides/{configuration,storage-strategies,tokens,security,deployment}.md`
@@ -51,28 +53,32 @@ Content rewrites:
 - `README.md`
 
 New pages:
+
 - `docs-site/src/content/docs/why.md` → `/why`
 - `docs-site/src/content/docs/security/cve-2025-36852.md` → `/security/cve-2025-36852`
 - `docs-site/src/content/docs/compare/nx-cloud.md` → `/compare/nx-cloud`
 - `docs-site/src/content/docs/guides/migrate-from-nx-s3-cache.md` → `/guides/migrate-from-nx-s3-cache`
 
 **Verification vocabulary (docs project — these replace unit tests):**
-- *Build gate:* `cd docs-site && bun run build` exits 0 and `starlight-links-validator` reports no broken links.
-- *Grep gate:* a `grep` returns no matches (e.g. no stale base path).
-- *Render gate:* `bunx playwright-cli` screenshot of the built page, no console errors.
-- *Schema gate:* JSON-LD parses and validates (Google Rich Results / schema.org).
+
+- _Build gate:_ `cd docs-site && bun run build` exits 0 and `starlight-links-validator` reports no broken links.
+- _Grep gate:_ a `grep` returns no matches (e.g. no stale base path).
+- _Render gate:_ `bunx playwright-cli` screenshot of the built page, no console errors.
+- _Schema gate:_ JSON-LD parses and validates (Google Rich Results / schema.org).
 
 ---
 
 ### Task 1: Domain + base-path migration + crawl files
 
 **Files:**
+
 - Modify: `docs-site/astro.config.mjs`
 - Create: `docs-site/public/CNAME`
 - Create: `docs-site/public/robots.txt`
 - Modify: every `docs-site/src/content/docs/**/*.{md,mdx}` link that contains `/nx-cache-server-bun/`
 
 **Interfaces:**
+
 - Produces: root-relative internal-link convention (`/guides/...`, `/api/...`) every later task uses; `site = https://remotecache.dev`.
 
 - [ ] **Step 1: Establish the green baseline build**
@@ -99,7 +105,11 @@ export default defineConfig({
       plugins: [
         starlightLinksValidator({ exclude: ['/api/**'] }),
         starlightOpenAPI([
-          { base: 'api', schema: '../nx-cache-server.openapi.json', sidebar: { label: 'API Reference' } },
+          {
+            base: 'api',
+            schema: '../nx-cache-server.openapi.json',
+            sidebar: { label: 'API Reference' },
+          },
         ]),
       ],
       // sidebar unchanged in this task
@@ -154,11 +164,13 @@ git commit -m "build(docs): migrate docs site to remotecache.dev apex domain"
 ### Task 2: Shared SEO metadata — default OG image + social tags
 
 **Files:**
+
 - Create: `docs-site/scripts/make-og-placeholder.mjs`
 - Create: `docs-site/public/og.png`
 - Modify: `docs-site/astro.config.mjs` (global `head`)
 
 **Interfaces:**
+
 - Consumes: `site` from Task 1.
 - Produces: a sitewide default `og:image`/`twitter:image` at `/og.png`; per-page tasks may override via frontmatter `head`.
 
@@ -175,7 +187,9 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
   <text x="80" y="380" font-family="sans-serif" font-size="36" fill="#9ca3af">Free, self-hosted, MIT-licensed. remotecache.dev</text>
 </svg>`;
 
-await sharp(Buffer.from(svg)).png().toFile(new URL('../public/og.png', import.meta.url).pathname);
+await sharp(Buffer.from(svg))
+  .png()
+  .toFile(new URL('../public/og.png', import.meta.url).pathname);
 console.log('wrote public/og.png');
 ```
 
@@ -213,15 +227,18 @@ git commit -m "feat(docs): add default Open Graph and Twitter social metadata"
 ### Task 3: Home page rewrite + SoftwareApplication JSON-LD
 
 **Files:**
+
 - Modify: `docs-site/src/content/docs/index.mdx`
 
 **Interfaces:**
+
 - Consumes: root-relative links (Task 1), default OG (Task 2).
 - Produces: the homepage hook + links into `/why` and the cluster. **Execute after Task 4** (its scaffold makes every linked route exist), per the execution-order note.
 
 - [ ] **Step 1: Rewrite `index.mdx`** (splash template)
 
 Keep `template: splash`. Replace frontmatter + body:
+
 - `title: remotecache` ; add a `head` title override + description:
 
 ```yaml
@@ -231,13 +248,13 @@ description: Own your Nx remote cache. A free, self-hosted, MIT-licensed Nx remo
 template: splash
 head:
   - tag: title
-    content: "Self-Hosted Nx Remote Cache — Free & MIT-Licensed | remotecache"
+    content: 'Self-Hosted Nx Remote Cache — Free & MIT-Licensed | remotecache'
   - tag: script
     attrs: { type: application/ld+json }
     content: |
       {"@context":"https://schema.org","@type":"SoftwareApplication","name":"remotecache (nx-cache-server-bun)","applicationCategory":"DeveloperApplication","operatingSystem":"Docker, Linux, macOS","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"license":"https://opensource.org/licenses/MIT","codeRepository":"https://github.com/thilak-rao/nx-cache-server-bun","url":"https://remotecache.dev/","description":"A free, self-hosted, MIT-licensed Nx remote cache server on the Bun runtime."}
 hero:
-  tagline: "Own your Nx remote cache. Free, MIT-licensed, self-hosted — the third option when the official @nx/* plugins are deprecated and Nx Cloud is the paid escape hatch."
+  tagline: 'Own your Nx remote cache. Free, MIT-licensed, self-hosted — the third option when the official @nx/* plugins are deprecated and Nx Cloud is the paid escape hatch.'
   actions:
     - text: Quickstart
       link: /getting-started/quickstart/
@@ -287,21 +304,23 @@ git commit -m "feat(docs): rewrite home page with positioning and SoftwareApplic
 ### Task 4: `/why` narrative page + TechArticle JSON-LD
 
 **Files:**
+
 - Create: `docs-site/src/content/docs/why.md`
 - Modify: `docs-site/astro.config.mjs` (sidebar)
 
 **Interfaces:**
+
 - Consumes: source material (`...-source-material.md`); links to `/security/cve-2025-36852/`, `/compare/nx-cloud/`, `/guides/migrate-from-nx-s3-cache/`, `/getting-started/quickstart/`.
 
 - [ ] **Step 1: Create `why.md`** with this exact frontmatter:
 
 ```yaml
 ---
-title: "Why remotecache exists"
+title: 'Why remotecache exists'
 description: "Nx self-hosted caching went free to paid to free to deprecated. Here's why I run a free, MIT-licensed Nx remote cache I actually own — and what this fork adds."
 head:
   - tag: title
-    content: "Why remotecache exists: the Nx cache deprecation story"
+    content: 'Why remotecache exists: the Nx cache deprecation story'
   - tag: script
     attrs: { type: application/ld+json }
     content: |
@@ -321,7 +340,7 @@ head:
 
 ```md
 ---
-title: "Is your self-hosted Nx cache safe? CVE-2025-36852"
+title: 'Is your self-hosted Nx cache safe? CVE-2025-36852'
 description: "CVE-2025-36852 (CREEP) cache poisoning deprecated Nx's self-hosted plugins. How a readonly/full token split lets you enforce the trust boundaries it exploits."
 ---
 
@@ -365,6 +384,7 @@ git commit -m "feat(docs): add Why page and scaffold the SEO cluster"
 ### Task 5: Security model rewrite — trust-boundary recipe + honest limits
 
 **Files:**
+
 - Modify: `docs-site/src/content/docs/guides/security.md`
 
 - [ ] **Step 1: Add SEO frontmatter** (keep existing accurate sections):
@@ -372,7 +392,7 @@ git commit -m "feat(docs): add Why page and scaffold the SEO cluster"
 ```yaml
 ---
 title: Security model
-description: "Token hashing, constant-time admin compare, path-traversal validation, append-only writes, and using readonly/full tokens to enforce CI trust boundaries."
+description: 'Token hashing, constant-time admin compare, path-traversal validation, append-only writes, and using readonly/full tokens to enforce CI trust boundaries.'
 ---
 ```
 
@@ -398,19 +418,20 @@ git commit -m "docs: expand security model with trust-boundary recipe and honest
 ### Task 6: `/security/cve-2025-36852` explainer + FAQPage JSON-LD
 
 **Files:**
+
 - Modify (overwrite the Task 4 stub): `docs-site/src/content/docs/security/cve-2025-36852.md`
 
-*(Sidebar entry already registered in Task 4 Step 4. Keep the stub's `title`/`description`; add the `head` JSON-LD and body below.)*
+_(Sidebar entry already registered in Task 4 Step 4. Keep the stub's `title`/`description`; add the `head` JSON-LD and body below.)_
 
 - [ ] **Step 1: Overwrite the stub** with this exact frontmatter (FAQPage answers are honest and final — use as written):
 
 ```yaml
 ---
-title: "Is your self-hosted Nx cache safe? CVE-2025-36852"
+title: 'Is your self-hosted Nx cache safe? CVE-2025-36852'
 description: "CVE-2025-36852 (CREEP) cache poisoning deprecated Nx's self-hosted plugins. How a readonly/full token split lets you enforce the trust boundaries it exploits."
 head:
   - tag: title
-    content: "Is your self-hosted Nx cache safe? CVE-2025-36852 (CREEP)"
+    content: 'Is your self-hosted Nx cache safe? CVE-2025-36852 (CREEP)'
   - tag: script
     attrs: { type: application/ld+json }
     content: |
@@ -444,19 +465,20 @@ git commit -m "feat(docs): add CVE-2025-36852 cache-poisoning explainer with FAQ
 ### Task 7: `/compare/nx-cloud` comparison page + TechArticle JSON-LD
 
 **Files:**
+
 - Modify (overwrite the Task 4 stub): `docs-site/src/content/docs/compare/nx-cloud.md`
 
-*(Sidebar "Compare" group already registered in Task 4 Step 4.)*
+_(Sidebar "Compare" group already registered in Task 4 Step 4.)_
 
 - [ ] **Step 1: Overwrite the stub** with this exact frontmatter:
 
 ```yaml
 ---
-title: "Self-hosted Nx remote cache vs Nx Cloud"
-description: "Nx Cloud vs a free, self-hosted Nx remote cache: cost, security, control, and data residency — and an honest take on when each one is the right call."
+title: 'Self-hosted Nx remote cache vs Nx Cloud'
+description: 'Nx Cloud vs a free, self-hosted Nx remote cache: cost, security, control, and data residency — and an honest take on when each one is the right call.'
 head:
   - tag: title
-    content: "Self-Hosted Nx Remote Cache vs Nx Cloud: Honest Comparison"
+    content: 'Self-Hosted Nx Remote Cache vs Nx Cloud: Honest Comparison'
   - tag: script
     attrs: { type: application/ld+json }
     content: |
@@ -485,19 +507,20 @@ git commit -m "feat(docs): add vs Nx Cloud comparison page"
 ### Task 8: `/guides/migrate-from-nx-s3-cache` migration page + TechArticle JSON-LD
 
 **Files:**
+
 - Modify (overwrite the Task 4 stub): `docs-site/src/content/docs/guides/migrate-from-nx-s3-cache.md`
 
-*(Sidebar entry already added to the Guides group in Task 4 Step 4.)*
+_(Sidebar entry already added to the Guides group in Task 4 Step 4.)_
 
 - [ ] **Step 1: Overwrite the stub** with this exact frontmatter:
 
 ```yaml
 ---
-title: "Migrate off the deprecated @nx/s3-cache plugin"
-description: "@nx/s3-cache and the other @nx/* self-hosted cache plugins are deprecated. Move to a free, self-hosted Nx remote cache server in a handful of env vars."
+title: 'Migrate off the deprecated @nx/s3-cache plugin'
+description: '@nx/s3-cache and the other @nx/* self-hosted cache plugins are deprecated. Move to a free, self-hosted Nx remote cache server in a handful of env vars.'
 head:
   - tag: title
-    content: "Migrate off the deprecated @nx/s3-cache plugin | remotecache"
+    content: 'Migrate off the deprecated @nx/s3-cache plugin | remotecache'
   - tag: script
     attrs: { type: application/ld+json }
     content: |
@@ -526,6 +549,7 @@ git commit -m "feat(docs): add migrate-from-@nx/s3-cache guide"
 ### Task 9: Voice + SEO pass on the remaining guides
 
 **Files (modify):**
+
 - `docs-site/src/content/docs/getting-started/quickstart.md`
 - `docs-site/src/content/docs/guides/configuration.md`
 - `docs-site/src/content/docs/guides/storage-strategies.md`
@@ -557,6 +581,7 @@ git commit -m "docs: voice and SEO pass on quickstart, guides, and architecture"
 ### Task 10: README rewrite — trim + origin + jase88 credit
 
 **Files:**
+
 - Modify: `README.md`
 
 - [ ] **Step 1: Rewrite README** to: one-line summary, the 18-month free→paid→free→deprecated hook (2–3 sentences) linking `https://remotecache.dev/why/`, key features, the existing quickstart block (update the docs link to `https://remotecache.dev/`), and a **Credits** section crediting `jase88/nx-cache-server-bun` with the "what this fork adds" list. Keep all badges. Keep the Docker quickstart accurate.

@@ -1,6 +1,6 @@
 ---
 title: Token & admin API
-description: "Manage access to your Nx remote cache: readonly and full tokens hashed at rest, plus the admin API for creating and revoking them."
+description: 'Manage access to your Nx remote cache: readonly and full tokens hashed at rest, plus the admin API for creating and revoking them.'
 ---
 
 The Nx remote cache controls access with three permission levels:

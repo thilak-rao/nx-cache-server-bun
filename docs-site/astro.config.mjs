@@ -9,18 +9,27 @@ export default defineConfig({
   site: 'https://remotecache.dev',
   integrations: [
     starlight({
-      title: 'nx-cache-server-bun',
+      title: 'remotecache',
+      logo: {
+        src: './src/assets/logo.png',
+        alt: 'remotecache',
+      },
+      favicon: '/favicon.png',
       social: [
         {
           icon: 'github',
           label: 'GitHub',
-          href: 'https://github.com/thilak-rao/nx-cache-server-bun',
+          href: 'https://github.com/thilak-rao/remotecache',
         },
       ],
       head: [
+        { tag: 'link', attrs: { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' } },
         { tag: 'meta', attrs: { property: 'og:image', content: 'https://remotecache.dev/og.png' } },
         { tag: 'meta', attrs: { name: 'twitter:card', content: 'summary_large_image' } },
-        { tag: 'meta', attrs: { name: 'twitter:image', content: 'https://remotecache.dev/og.png' } },
+        {
+          tag: 'meta',
+          attrs: { name: 'twitter:image', content: 'https://remotecache.dev/og.png' },
+        },
       ],
       plugins: [
         starlightLinksValidator({

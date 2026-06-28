@@ -1,9 +1,9 @@
 ---
-title: "Self-hosted Nx remote cache vs Nx Cloud"
-description: "Nx Cloud vs a free, self-hosted Nx remote cache: cost, security, control, and data residency — and an honest take on when each one is the right call."
+title: 'Self-hosted Nx remote cache vs Nx Cloud'
+description: 'Nx Cloud vs a free, self-hosted Nx remote cache: cost, security, control, and data residency — and an honest take on when each one is the right call.'
 head:
   - tag: title
-    content: "Self-Hosted Nx Remote Cache vs Nx Cloud: Honest Comparison"
+    content: 'Self-Hosted Nx Remote Cache vs Nx Cloud: Honest Comparison'
   - tag: script
     attrs: { type: application/ld+json }
     content: |
@@ -16,15 +16,15 @@ For context on why the official self-hosted plugins were deprecated and why this
 
 ## At a glance
 
-| | **Nx Cloud** | **This server** |
-|---|---|---|
-| **Cost** | Hobby: $0 · Team: $19 /contributor-month¹ · Enterprise: custom | Infrastructure cost only — no per-seat or per-contributor fee |
-| **Hosting model** | Managed SaaS (Nrwl/Nx) | Self-hosted on your own infrastructure |
-| **Cache-poisoning defense** | Built-in cryptographic artifact-integrity verification | `readonly`/`full` token split — untrusted CI gets read-only and cannot write artifacts |
-| **Distributed task execution** | Yes — Nx Agents included on all plans | Cache only; no distributed execution |
-| **Data residency** | Nx infrastructure (US by default) | Your infra — air-gapped deployments supported |
-| **License** | Proprietary SaaS | MIT |
-| **Support** | Official Nrwl support + SLA on Team/Enterprise | Community / self-managed |
+|                                | **Nx Cloud**                                                   | **This server**                                                                        |
+| ------------------------------ | -------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| **Cost**                       | Hobby: $0 · Team: $19 /contributor-month¹ · Enterprise: custom | Infrastructure cost only — no per-seat or per-contributor fee                          |
+| **Hosting model**              | Managed SaaS (Nrwl/Nx)                                         | Self-hosted on your own infrastructure                                                 |
+| **Cache-poisoning defense**    | Built-in cryptographic artifact-integrity verification         | `readonly`/`full` token split — untrusted CI gets read-only and cannot write artifacts |
+| **Distributed task execution** | Yes — Nx Agents included on all plans                          | Cache only; no distributed execution                                                   |
+| **Data residency**             | Nx infrastructure (US by default)                              | Your infra — air-gapped deployments supported                                          |
+| **License**                    | Proprietary SaaS                                               | MIT                                                                                    |
+| **Support**                    | Official Nrwl support + SLA on Team/Enterprise                 | Community / self-managed                                                               |
 
 ¹ Prices observed June 2026; first 5 contributors are free on the Team plan. Verify current figures at [nx.dev/pricing](https://nx.dev/pricing) before budgeting — Nx has changed its pricing model several times, and the numbers drift.
 

@@ -10,7 +10,7 @@ The self-hosted Nx remote cache server ships as a pre-built container image publ
 Images are published to the GitHub Container Registry:
 
 ```
-ghcr.io/thilak-rao/nx-cache-server-bun
+ghcr.io/thilak-rao/remotecache
 ```
 
 | Tag            | Published when              |
@@ -31,7 +31,7 @@ docker run -p 3000:3000 \
   -e ADMIN_TOKEN="change-me" \
   -v "$PWD/data:/app/data" \
   -v "$PWD/cache:/app/cache" \
-  ghcr.io/thilak-rao/nx-cache-server-bun:latest
+  ghcr.io/thilak-rao/remotecache:latest
 ```
 
 For S3 storage, omit the `./cache` volume and pass the S3 environment variables instead. The `./data` volume is still needed for the token database. See [Storage strategies](/guides/storage-strategies/) for details.

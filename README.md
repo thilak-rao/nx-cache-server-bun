@@ -1,10 +1,14 @@
-# nx-cache-server-bun
+<p align="center">
+  <img src="docs-site/src/assets/logo.png" alt="remotecache" width="120" height="120">
+</p>
+
+# remotecache
 
 A small, self-hosted Nx remote cache server built on Bun.
 
-[![CI](https://github.com/thilak-rao/nx-cache-server-bun/actions/workflows/ci.yml/badge.svg)](https://github.com/thilak-rao/nx-cache-server-bun/actions/workflows/ci.yml)
-[![Docs](https://github.com/thilak-rao/nx-cache-server-bun/actions/workflows/docs.yml/badge.svg)](https://remotecache.dev/)
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/thilak-rao/nx-cache-server-bun/badge)](https://scorecard.dev/viewer/?uri=github.com/thilak-rao/nx-cache-server-bun)
+[![CI](https://github.com/thilak-rao/remotecache/actions/workflows/ci.yml/badge.svg)](https://github.com/thilak-rao/remotecache/actions/workflows/ci.yml)
+[![Docs](https://github.com/thilak-rao/remotecache/actions/workflows/docs.yml/badge.svg)](https://remotecache.dev/)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/thilak-rao/remotecache/badge)](https://scorecard.dev/viewer/?uri=github.com/thilak-rao/remotecache)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
 **Full documentation:** [remotecache.dev](https://remotecache.dev/)
@@ -58,7 +62,7 @@ docker run -p 3000:3000 \
   -e ADMIN_TOKEN="change-me" \
   -v "$PWD/data:/app/data" \
   -v "$PWD/cache:/app/cache" \
-  ghcr.io/thilak-rao/nx-cache-server-bun:latest
+  ghcr.io/thilak-rao/remotecache:latest
 ```
 
 See the [Deployment guide](https://remotecache.dev/guides/deployment/) for S3 storage and production setup.
@@ -70,17 +74,6 @@ See the [Deployment guide](https://remotecache.dev/guides/deployment/) for S3 st
 - [Security model](https://remotecache.dev/guides/security/) — token auth, hashing, permissions
 - [Contributing](https://remotecache.dev/contributing/) — how to contribute
 
-## Credits
+---
 
-This project is built on [`jase88/nx-cache-server-bun`](https://github.com/jase88/nx-cache-server-bun) — the original Bun-based Nx cache server by [jase88](https://github.com/jase88). MIT license preserved.
-
-What this fork adds:
-
-- SHA-256 token hashing at rest + plaintext-DB migration
-- Upload cap / 413 response
-- Constant-time admin token compare
-- Path-traversal and hash hardening
-- Non-root pinned container image
-- GHCR publishing
-- Repo hardening
-- Docs site ([remotecache.dev](https://remotecache.dev/))
+Built on the MIT-licensed [`jase88/nx-cache-server-bun`](https://github.com/jase88/nx-cache-server-bun); the original copyright is preserved in [LICENSE](./LICENSE).

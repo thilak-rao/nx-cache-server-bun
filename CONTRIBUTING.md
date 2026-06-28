@@ -1,6 +1,6 @@
 # Contributing
 
-Want to improve nx-cache-server-bun? Here's what you need.
+Want to improve remotecache? Here's what you need.
 
 ## Prerequisites
 
@@ -24,7 +24,7 @@ Build the docs site from `docs-site/` with `bun install && bun run build`.
 - Conventional Commits: `type(scope): subject` (`feat|fix|docs|refactor|perf|test|build|ci|chore|revert`).
 - Bun built-ins only — no Node-only equivalents or extra deps for what Bun provides.
 - Docs travel with code: a change to behavior, the HTTP API, env vars, or config updates the matching docs surface in the same commit (see `AGENTS.md`).
-- Full docs: https://thilak-rao.github.io/nx-cache-server-bun/
+- Full docs: https://remotecache.dev/
 
 ## Pull requests
 

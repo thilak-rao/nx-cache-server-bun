@@ -1,6 +1,6 @@
 ---
 title: Security model
-description: "Token hashing, constant-time admin compare, path-traversal validation, append-only writes, and using readonly/full tokens to enforce CI trust boundaries."
+description: 'Token hashing, constant-time admin compare, path-traversal validation, append-only writes, and using readonly/full tokens to enforce CI trust boundaries.'
 ---
 
 ## Token storage

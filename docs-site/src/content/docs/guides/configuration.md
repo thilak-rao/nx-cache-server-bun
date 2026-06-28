@@ -1,6 +1,6 @@
 ---
 title: Configuration
-description: "Every environment variable for the self-hosted Nx remote cache server: admin token, port, storage strategy, upload limits, and S3 settings."
+description: 'Every environment variable for the self-hosted Nx remote cache server: admin token, port, storage strategy, upload limits, and S3 settings.'
 ---
 
 The self-hosted Nx remote cache server reads all configuration from environment variables. There are no config files.

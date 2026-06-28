@@ -31,8 +31,8 @@ server's behaviour, HTTP API, or public surface.
 
 Source material that drives the narrative (all public):
 
-- Emily Xiong, *"Exploring of Nx Self-Hosted Cache: From Free to Paid to Free to
-  Deprecated"* (Medium, Nov 2025) — the timeline and the CVE explainer.
+- Nx's own deprecation notice and the deprecated-packages reference page — the
+  timeline and the CVE explainer.
 - Jeff Cross (@jeffbcross) deprecation announcement (May 21, 2026): the four
   packages `@nx/s3-cache`, `@nx/gcs-cache`, `@nx/azure-cache`,
   `@nx/shared-fs-cache` deprecated, citing **CVE-2025-36852 (CREEP)** cache
@@ -61,7 +61,7 @@ cache — and reserve `full` tokens for trusted main/deploy pipelines.
 
 ## Locked decisions (from brainstorming)
 
-- **Narrative spine:** *"Own your Nx remote cache."* Security + freedom woven,
+- **Narrative spine:** _"Own your Nx remote cache."_ Security + freedom woven,
   anchored by the origin story. Hook: Nx caching went free → paid ($250/seat) →
   free → deprecated in ~20 months; the official plugins are now deprecated over a
   cache-poisoning CVE; Nx Cloud is the paid escape hatch; this is the free,
@@ -81,21 +81,22 @@ cache — and reserve `full` tokens for trusted main/deploy pipelines.
 
 Overclaiming destroys credibility with this exact audience. Every page obeys:
 
-- Frame the token split as *"lets you architect around the cache-poisoning
-  class"* — **never** "immune to / fixes CVE-2025-36852."
+- Frame the token split as _"lets you architect around the cache-poisoning
+  class"_ — **never** "immune to / fixes CVE-2025-36852."
 - The security page carries an explicit **Honest limits** callout:
   - Append-only is **first-writer-wins**: a `full` token handed to an untrusted
     context re-introduces the poisoning risk.
   - This is **not** Nx Cloud's cryptographic artifact-integrity verification. The
     server gives you the lever; correct token scoping is the operator's job.
-- **Credit `jase88`** on `/why` and in the README; preserve MIT attribution. The
-  "what this fork adds" list is the real git history only: SHA-256 token hashing
-  at rest + plaintext-DB migration, upload size cap (`413`), constant-time admin
-  compare, path-traversal/hash hardening, non-root pinned container, GHCR
-  publishing, full repo hardening (CodeQL/Scorecard/Dependabot/rulesets), and the
-  docs site.
-- **No invented benchmarks.** Any cost-of-no-cache framing (e.g. "3-min → 30-min
-  build") is attributed to the Medium piece, not claimed as our measurement.
+- **Credit `jase88`** as a footnote on `/why` and in the README; the binding
+  attribution is the preserved MIT copyright in `LICENSE`. The "what remotecache
+  adds" list is the real git history only: SHA-256 token hashing at rest +
+  plaintext-DB migration, upload size cap (`413`), constant-time admin compare,
+  path-traversal/hash hardening, non-root pinned container, GHCR publishing, full
+  repo hardening (CodeQL/Scorecard/Dependabot/rulesets), and the docs site.
+- **No invented benchmarks.** Don't present any cost-of-no-cache speed figure
+  (e.g. "3-min → 30-min build") as our measurement; describe local-only caching
+  qualitatively instead.
 - The `vs Nx Cloud` comparison states Nx Cloud's genuine strengths (managed,
   zero-trust artifact verification, distributed task execution / agents).
 
@@ -239,7 +240,7 @@ API Reference (auto-generated, unchanged)
 
 - **Base-path removal is the riskiest mechanical step:** miss one
   `/nx-cache-server-bun/...` link and it 404s on the custom domain. The grep gate
-  + links-validator + post-deploy 200 check cover it.
+  - links-validator + post-deploy 200 check cover it.
 - **Canonical correctness:** after dropping `base`, confirm Starlight emits
   `https://remotecache.dev/...` canonicals (not the old github.io path).
 - **Honest-claims review:** the security and comparison pages get an explicit
