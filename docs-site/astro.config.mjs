@@ -17,6 +17,11 @@ export default defineConfig({
           href: 'https://github.com/thilak-rao/nx-cache-server-bun',
         },
       ],
+      head: [
+        { tag: 'meta', attrs: { property: 'og:image', content: 'https://remotecache.dev/og.png' } },
+        { tag: 'meta', attrs: { name: 'twitter:card', content: 'summary_large_image' } },
+        { tag: 'meta', attrs: { name: 'twitter:image', content: 'https://remotecache.dev/og.png' } },
+      ],
       plugins: [
         starlightLinksValidator({
           // starlight-openapi pages are generated dynamically and don't register
