@@ -190,7 +190,22 @@ is missing):
   storage internals, security model, architecture) to the site.
 - Add badges: CI status, Pages/docs, license, GHCR image, and OpenSSF Scorecard.
 - Keep `CLAUDE.md`/`AGENTS.md` references accurate after the README is trimmed
-  (update any internal cross-links).
+  (`CLAUDE.md` is a symlink to `AGENTS.md`, so one edit covers both). Update
+  `AGENTS.md` line 3 once the docs site is canonical: it currently points at the
+  README for "the full API surface, environment variables, and deployment".
+
+### Anti-drift governance (AGENTS.md)
+
+`AGENTS.md` carries a `## Docs stay in sync` rule (added ahead of this plan) so
+docs are updated in the same commit as the code that changes them:
+
+- HTTP API → `nx-cache-server.openapi.json` (single source of truth; the site's
+  API Reference is generated from it).
+- Env vars / config → the site's Configuration page (canonical); README links to
+  it.
+- Behavior / storage / security / architecture → the matching site guide.
+
+The plan must reconcile `AGENTS.md` line 3 with this rule once the site exists.
 
 ## Verification
 

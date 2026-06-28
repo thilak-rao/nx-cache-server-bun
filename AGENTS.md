@@ -33,6 +33,14 @@ This project runs on Bun and uses Bun's built-ins. Do not add Node-only equivale
 - Cache writes are append-only: an existing hash returns `409`, never an overwrite.
 - Token values are hashed (SHA-256) at rest (`hashToken`); the store looks up by hash and only ever returns `id` + `permission`. `TokenStorage` migrates pre-hash plaintext databases on open, gated by `PRAGMA user_version`.
 
+## Docs stay in sync
+
+Docs are part of the change, not a follow-up: any change to behavior, the HTTP API, env vars, or config must update the matching docs surface in the same commit — otherwise the change is incomplete.
+
+- HTTP API (routes, status codes, request/response shapes) → `nx-cache-server.openapi.json`, the single source of truth. The `docs-site/` API Reference is generated from it; never hand-write API docs elsewhere.
+- Env vars and configuration → the Configuration page in `docs-site/` (canonical); `README.md` only links to it.
+- Behavior, storage, security, or architecture → the matching guide in `docs-site/`.
+
 ## Workflow
 
 - Unit tests colocate beside their source as `*.spec.ts`; end-to-end tests live under `e2e/`.
