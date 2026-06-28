@@ -1,9 +1,9 @@
 ---
 title: Storage strategies
-description: Filesystem and S3-compatible storage options.
+description: Store your self-hosted Nx remote cache on local disk or any S3-compatible bucket (AWS S3, MinIO), or write a custom storage strategy.
 ---
 
-The server has two storage backends: **filesystem** (the default) and **S3-compatible object storage**. Both are append-only — an existing hash always returns `409` and is never overwritten.
+The self-hosted Nx remote cache server has two built-in storage backends: **filesystem** (the default) and **S3-compatible object storage**. Both are append-only — an existing hash always returns `409` and is never overwritten.
 
 ## Filesystem (default)
 
@@ -30,4 +30,4 @@ With S3 there is no local cache directory to persist; the bucket handles durabil
 
 Implement the `CacheStorageStrategy` interface (`src/cache/storage-strategy/storage-strategy.interface.ts`) and register the new class in `createCacheStorage` (`src/cache/create-cache-storage.ts`). The existing `file-system.ts` and `s3.ts` are the simplest references.
 
-All strategies are append-only: if an entry already exists for a given hash, the handler returns `409` without calling `write`.
+All strategies are append-only: if an entry already exists for a given hash, the handler returns `409` without calling `write`. See [Security](/guides/security/) for how this ties into the server's trust model.

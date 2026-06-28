@@ -1,9 +1,9 @@
 ---
 title: Configuration
-description: Environment variables and configuration options.
+description: "Every environment variable for the self-hosted Nx remote cache server: admin token, port, storage strategy, upload limits, and S3 settings."
 ---
 
-The server reads all configuration from environment variables. There are no config files.
+The self-hosted Nx remote cache server reads all configuration from environment variables. There are no config files.
 
 ## Environment variables
 
@@ -28,7 +28,7 @@ The server reads all configuration from environment variables. There are no conf
 
 For production, `TOKENS_DB_PATH` and `CACHE_DIR` (or the S3 bucket) need to survive restarts. Mount a persistent volume for `./data` and `./cache`, or point these variables at a path that persists.
 
-For S3, set `STORAGE_STRATEGY=s3` along with `S3_REGION`, `S3_BUCKET`, `S3_ACCESS_KEY_ID`, and `S3_SECRET_ACCESS_KEY`. MinIO and other compatible providers also need `S3_ENDPOINT`.
+For S3, set `STORAGE_STRATEGY=s3` along with `S3_REGION`, `S3_BUCKET`, `S3_ACCESS_KEY_ID`, and `S3_SECRET_ACCESS_KEY`. MinIO and other compatible providers also need `S3_ENDPOINT`. If you are moving from `@pellegrims/nx-s3-cache`, see [Migrate from nx-s3-cache](/guides/migrate-from-nx-s3-cache/).
 
 `MAX_UPLOAD_BYTES` caps `PUT /v1/cache/:hash` uploads. Anything over the limit returns `413` before the body hits storage.
 
