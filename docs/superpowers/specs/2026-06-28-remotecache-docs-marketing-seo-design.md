@@ -23,6 +23,12 @@ server's behaviour, HTTP API, or public surface.
 
 ## Background / context
 
+> **Implementer: read the source material first.** The full article digest,
+> verbatim deprecation tweet, source URLs, CVE mechanics, pricing facts, and
+> license terms are captured in the companion file
+> [`2026-06-28-remotecache-source-material.md`](./2026-06-28-remotecache-source-material.md).
+> Cite from it; do not invent facts or benchmarks beyond what it records.
+
 Source material that drives the narrative (all public):
 
 - Emily Xiong, *"Exploring of Nx Self-Hosted Cache: From Free to Paid to Free to
