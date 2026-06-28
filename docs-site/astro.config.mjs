@@ -19,7 +19,11 @@ export default defineConfig({
         },
       ],
       plugins: [
-        starlightLinksValidator(),
+        starlightLinksValidator({
+          // starlight-openapi pages are generated dynamically and don't register
+          // headings with the links validator, so exclude them from validation.
+          exclude: ['/nx-cache-server-bun/api/**'],
+        }),
         // Generate the API reference from the OpenAPI spec at the repo root.
         starlightOpenAPI([
           {
