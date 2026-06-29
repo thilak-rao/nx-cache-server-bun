@@ -58,7 +58,7 @@ spec:
             - name: BIND_ADDRESS
               value: {{ .Values.config.bindAddress | quote }}
             - name: MAX_UPLOAD_BYTES
-              value: {{ .Values.config.maxUploadBytes | quote }}
+              value: {{ .Values.config.maxUploadBytes | int64 | quote }}
             - name: TOKENS_DB_PATH
               value: {{ .Values.storage.tokensDbPath | quote }}
             - name: STORAGE_STRATEGY
