@@ -3,3 +3,5 @@ node_modules
 .idea
 .env.local
 *.sqlite
+# release binary build output
+dist/
