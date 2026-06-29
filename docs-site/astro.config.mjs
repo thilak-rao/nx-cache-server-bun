@@ -75,7 +75,10 @@ export default defineConfig({
         },
         {
           label: 'Contributing',
-          items: [{ label: 'Architecture', slug: 'contributing/architecture' }],
+          items: [
+            { label: 'Architecture', slug: 'contributing/architecture' },
+            { label: 'Releases', slug: 'contributing/releases' },
+          ],
         },
         ...openAPISidebarGroups,
       ],
