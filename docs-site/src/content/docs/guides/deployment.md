@@ -13,12 +13,17 @@ Images are published to the GitHub Container Registry:
 ghcr.io/thilak-rao/remotecache
 ```
 
-| Tag            | Published when              |
-| -------------- | --------------------------- |
-| `:latest`      | Push to `main`              |
-| `:sha-<short>` | Push to `main`              |
-| `:X.Y.Z`       | Version tag (e.g. `v1.2.3`) |
-| `:X.Y`         | Version tag                 |
+| Tag            | Published when              | Use                                    |
+| -------------- | --------------------------- | -------------------------------------- |
+| `:edge`        | Successful push to `main`   | Testing unreleased changes from `main` |
+| `:sha-<short>` | Successful push to `main`   | Pinning an exact unreleased build      |
+| `:latest`      | Version tag (e.g. `v1.2.3`) | Latest stable release                  |
+| `:X.Y.Z`       | Version tag                 | Pinning an exact stable release        |
+| `:X.Y`         | Version tag                 | Tracking patch releases within a minor |
+
+The old main-branch `latest` behavior is intentionally retired. For production, pin `:X.Y.Z` or `:X.Y`; use `:latest` only when you deliberately want the newest stable release.
+
+Images are published for `linux/amd64` and `linux/arm64`. Release builds include BuildKit SBOM and provenance attestations.
 
 The container runs as a non-root user. The Bun base image is pinned by digest.
 

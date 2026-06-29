@@ -66,6 +66,8 @@ docker run -p 3000:3000 \
   ghcr.io/thilak-rao/remotecache:latest
 ```
 
+`latest` points at the newest stable release. Use `edge` only for unreleased builds from `main`.
+
 See the [Deployment guide](https://remotecache.dev/guides/deployment/) for S3 storage and production setup.
 
 ## Links
