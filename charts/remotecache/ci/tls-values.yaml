@@ -1,0 +1,4 @@
+adminToken: ci-admin-token
+tls:
+  enabled: true
+  existingSecret: remotecache-tls

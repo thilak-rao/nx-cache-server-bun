@@ -1,0 +1,3 @@
+adminToken: ci-admin-token
+storage:
+  strategy: filesystem

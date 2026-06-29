@@ -1,0 +1,9 @@
+adminToken: ci-admin-token
+storage:
+  strategy: s3
+s3:
+  bucket: ci-bucket
+  region: us-east-1
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::123456789012:role/remotecache
