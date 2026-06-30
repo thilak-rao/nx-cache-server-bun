@@ -8,7 +8,7 @@ describe('graceful shutdown e2e', () => {
     const dir = mkdtempSync(join(tmpdir(), 'rc-sigterm-'));
     const proc = Bun.spawn(['bun', 'src/main.ts'], {
       env: {
-        ...process.env,
+        ...Bun.env,
         ADMIN_TOKEN: 'admin-token',
         PORT: '4030',
         CACHE_DIR: join(dir, 'cache'),

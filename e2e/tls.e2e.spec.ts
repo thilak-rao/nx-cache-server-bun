@@ -35,7 +35,7 @@ describe('tls e2e', () => {
 
     proc = Bun.spawn(['bun', 'src/main.ts'], {
       env: {
-        ...process.env,
+        ...Bun.env,
         ADMIN_TOKEN: 'admin-token',
         PORT: '4020',
         CACHE_DIR: join(dir, 'cache'),
