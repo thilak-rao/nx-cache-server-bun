@@ -98,7 +98,7 @@ export const server = Bun.serve({
   ...(tls ? { tls } : {}),
   routes: {
     '/health': {
-      GET: () => getHealth(),
+      GET: getHealth,
     },
     '/metrics': {
       GET: () => getMetrics(metrics),
